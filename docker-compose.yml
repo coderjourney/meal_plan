@@ -1,0 +1,22 @@
+version: "2"
+
+volumes:
+  db-data:
+    external: false
+
+services:
+  db:
+    image: postgres
+    env_file: .env
+    volumes:
+      - db-data:/var/lib/postgresql/db-data
+
+  app:
+    build: .
+    env_file: .env
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
