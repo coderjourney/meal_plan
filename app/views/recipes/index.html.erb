@@ -1,0 +1,20 @@
+<h1>Recipes</h1>
+
+<div>
+  <%= link_to "New Recipe", new_recipe_path %>
+</div>
+
+<div class="recipes">
+  <% @recipes.each do |recipe| %>
+    <div class="recipe">
+      <h3><%= link_to recipe.name, recipe_path(recipe) %></h3>
+      <p><%= recipe.description %></p>
+      <ul class="recipe-actions">
+        <li><%= link_to "Edit", edit_recipe_path(recipe) %></li>
+        <li><%= link_to "Delete", recipe_path(recipe), data: {
+          confirm: "Are you sure you want to delete: #{recipe.name}?",
+        }, method: :delete %></li>
+      </ul>
+    </div>
+  <% end %>
+</div>
