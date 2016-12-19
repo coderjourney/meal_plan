@@ -1,0 +1,18 @@
+<h1>Meal Plan: <%= @meal_plan %></h1>
+
+<ul class="meals">
+  <% @meal_plan.meals.each do |meal| %>
+    <li class="meal">
+      <%= meal.date %> - <%= link_to meal.recipe, recipe_path(meal.recipe) %>
+    </li>
+  <% end %>
+</ul>
+
+<div class="actions">
+  <ul class="meal-plan-actions">
+    <li><%= link_to "Edit Meal Plan", edit_meal_plan_path(@meal_plan) %></li>
+    <li><%= link_to "Delete", meal_plan_path(@meal_plan), data: {
+      confirm: "Are you sure you want to delete meal plan: #{@meal_plan}?",
+    }, method: :delete %></li>
+  </ul>
+</div>
