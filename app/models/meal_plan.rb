@@ -25,6 +25,6 @@ class MealPlan < ApplicationRecord
   end
 
   def to_s
-    "#{start_date} - #{end_date}"
+    "#{I18n.localize(start_date)} - #{I18n.localize(end_date)}"
   end
 end

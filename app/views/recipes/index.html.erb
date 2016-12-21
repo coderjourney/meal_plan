@@ -1,20 +1,23 @@
-<h1>Recipes</h1>
-
-<div>
-  <%= link_to "New Recipe", new_recipe_path %>
+<div class="title-container">
+  <h1>Recipes</h1>
+  <%= link_to "New Recipe", new_recipe_path, class: "btn btn-default" %>
 </div>
 
 <div class="recipes">
   <% @recipes.each do |recipe| %>
     <div class="recipe">
-      <h3><%= link_to recipe.name, recipe_path(recipe) %></h3>
-      <p><%= recipe.description %></p>
-      <ul class="recipe-actions">
-        <li><%= link_to "Edit", edit_recipe_path(recipe) %></li>
-        <li><%= link_to "Delete", recipe_path(recipe), data: {
-          confirm: "Are you sure you want to delete: #{recipe.name}?",
-        }, method: :delete %></li>
-      </ul>
+      <div class="thumbnail">
+        <div class="caption">
+          <h3><%= link_to truncate(recipe.name), recipe_path(recipe) %></h3>
+          <p><%= truncate(recipe.description, length: 150) %></p>
+          <p>
+            <%= link_to "Edit", edit_recipe_path(recipe), class: "btn btn-default" %>
+            <%= link_to "Delete", recipe_path(recipe), data: {
+              confirm: "Are you sure you want to delete: #{recipe.name}?",
+            }, method: :delete %>
+          </p>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
