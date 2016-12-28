@@ -1,6 +1,6 @@
 <%= render partial: "shared/errors" %>
 
-<%= form_for @meal_plan do |form| %>
+<%= form_for @meal_plan, html: { class: "form-horizontal" } do |form| %>
   <%= form.hidden_field :start_date %>
   <%= form.hidden_field :end_date %>
 
@@ -8,15 +8,23 @@
     <%= form.fields_for :meals do |meal_fields| %>
       <%= meal_fields.hidden_field :id %>
       <%= meal_fields.hidden_field :date %>
-      <p><%= meal_fields.object.date.to_s %></p>
-      <div class="form-control">
-        <%= meal_fields.label :recipe_id %>
-        <%= meal_fields.select :recipe_id, current_user.recipe_options %>
+      <div class="form-group margin-vertial-none">
+        <div class="col-sm-11 col-sm-offset-1">
+          <p><%= localize(meal_fields.object.date) %></p>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= meal_fields.label :recipe_id, class: "col-sm-1 control-label" %>
+        <div class="col-sm-11">
+          <%= meal_fields.select :recipe_id, current_user.recipe_options, {}, class: "form-control" %>
+        </div>
       </div>
     <% end %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group">
+    <div class="col-sm-11 col-sm-offset-1">
+      <%= form.submit class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>
