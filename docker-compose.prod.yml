@@ -1,0 +1,20 @@
+version: "2"
+
+volumes:
+  db-data:
+    external: false
+
+services:
+  prod_db:
+    image: postgres
+    env_file: .env.prod
+    volumes:
+      - db-data:/var/lib/postgresql/db-data
+
+  prod_app:
+    build: .
+    env_file: .env.prod
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prod_db
