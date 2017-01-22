@@ -1,10 +1,24 @@
 version: "2"
 
 volumes:
+  assets:
+    external: false
+  configs:
+    external: false
   db-data:
     external: false
 
 services:
+  webserver:
+    image: "nginx:1.11.8"
+    env_file: .env.prod
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - assets:/usr/share/nginx/html
+      - configs:/etc/nginx/conf.d
+
   prod_db:
     image: postgres
     env_file: .env.prod
@@ -12,9 +26,15 @@ services:
       - db-data:/var/lib/postgresql/db-data
 
   prod_app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
     env_file: .env.prod
     ports:
       - "3000:3000"
+    volumes:
+      - assets:/usr/share/nginx/html
+      - configs:/etc/nginx/conf.d
     depends_on:
       - prod_db
+      - webserver
