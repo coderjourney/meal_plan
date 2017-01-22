@@ -1,7 +1,15 @@
-#!/bin/sh
+#!/bin/bash -e
 
 if [[ -a /tmp/puma.pid ]]; then
   rm /tmp/puma.pid
+fi
+
+if [[ $RAILS_ENV == "production" ]]; then
+  rake assets:precompile
+  mkdir -p /usr/share/nginx/html
+  cp -R public/* /usr/share/nginx/html
+  mkdir -p /etc/nginx/conf.d/
+  cp site.conf /etc/nginx/conf.d/default.conf
 fi
 
 rails server -b 0.0.0.0 -P /tmp/puma.pid
