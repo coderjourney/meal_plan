@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mealplan
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mealplan
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: mealplan
+          image: "meal_plan:1"
+          ports:
+            - name: rails
+              containerPort: 3000
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mealplan-config
+                  key: postgres_user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mealplan-config
+                  key: postgres_password
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mealplan-config
+                  key: postgres_host
+            - name: RAILS_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: mealplan-config
+                  key: rails_env
+            - name: RAILS_LOG_TO_STDOUT
+              valueFrom:
+                configMapKeyRef:
+                  name: mealplan-config
+                  key: rails_log_to_stdout
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mealplan-config
+                  key: secret_key_base

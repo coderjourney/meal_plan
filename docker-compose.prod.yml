@@ -24,6 +24,8 @@ services:
     env_file: .env.prod
     volumes:
       - db-data:/var/lib/postgresql/db-data
+    ports:
+      - "5432:5432"
 
   prod_app:
     build:
