@@ -37,7 +37,7 @@ spec:
               name: postgres
           volumeMounts:
             - name: postgres-storage
-              mountPath: /var/lib/postgresql/db-data
+              mountPath: /var/lib/postgresql/data
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
@@ -53,3 +53,16 @@ spec:
   resources:
     requests:
       storage: 5Gi
+  volumeName: postgres-pv
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  hostPath:
+    path: /data/mealplan-postgres
