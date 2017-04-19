@@ -24,7 +24,7 @@ spec:
         tier: frontend
     spec:
       containers:
-        - image: "coderjourney/mealplan-frontend:1.0.0"
+        - image: us.gcr.io/mealplan-165022/mealplan-frontend:1.0.0
           name: nginx
           lifecycle:
             preStop:

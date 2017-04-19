@@ -32,6 +32,11 @@ spec:
                 configMapKeyRef:
                   name: mealplan-config
                   key: postgres_password
+            - name: PGDATA
+              valueFrom:
+                configMapKeyRef:
+                  name: mealplan-config
+                  key: pgdata
           ports:
             - containerPort: 5432
               name: postgres
@@ -40,29 +45,6 @@ spec:
               mountPath: /var/lib/postgresql/data
       volumes:
         - name: postgres-storage
-          persistentVolumeClaim:
-            claimName: postgres-pv-claim
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: postgres-pv-claim
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
-  volumeName: postgres-pv
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: postgres-pv
-spec:
-  accessModes:
-    - ReadWriteOnce
-  capacity:
-    storage: 5Gi
-  hostPath:
-    path: /data/mealplan-postgres
+          gcePersistentDisk:
+            fsType: ext4
+            pdName: postgres-disk
