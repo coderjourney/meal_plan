@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: mealplan
-          image: us.gcr.io/mealplan-165022/mealplan:1.0.0
+          image: us.gcr.io/mealplan-165022/mealplan:1.1.0
           ports:
             - name: rails
               containerPort: 3000
