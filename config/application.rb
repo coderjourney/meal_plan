@@ -23,6 +23,9 @@ module MealPlanner
 
     config.generators do |g|
       g.test_framework :minitest, spec: true
+      g.helper false
+      g.javascript false
+      g.stylesheet false
     end
   end
 end

@@ -9,7 +9,7 @@ services:
     image: postgres
     env_file: .env
     volumes:
-      - db-data:/var/lib/postgresql/db-data
+      - db-data:/var/lib/postgresql/data
 
   app:
     build: .
